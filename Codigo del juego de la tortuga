@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb  4 21:06:58 2024
-
-@author: Usuario
-"""
-
 import turtle
 import random
 
@@ -17,6 +10,7 @@ player.penup()
 
 game_objects = []
 star_counter = 0
+missed_red_stars = 0
 counter_display = turtle.Turtle()
 counter_display.hideturtle()
 counter_display.penup()
@@ -98,7 +92,7 @@ for _ in range(10):  # Controla el número inicial de obstáculos en el juego
     create_obstacle()
 
 def game_loop():
-    global star_counter  # Agrega esta línea para indicar que star_counter es global
+    global star_counter, missed_red_stars  # Agrega esta línea para indicar que estas variables son globales
     # Mover y eliminar estrellas y obstáculos
     for game_object in game_objects:
         y = game_object.ycor()
@@ -114,6 +108,11 @@ def game_loop():
                 game_object.goto(random.randint(-380, 380), random.randint(-240, 240))
                 create_star()  # Vuelve a crear un objeto
             elif "red" in game_object.color():
+                missed_red_stars += 1
+                if missed_red_stars >= 3:
+                    print("Has perdido. Recolectaste 3 estrellas rojas incorrectamente.")
+                    wn.bye()
+                    return
                 star_counter -= 1  # Disminuye el contador al recolectar una estrella roja
                 counter_display.clear()
                 counter_display.write("Estrellas: {}".format(star_counter), align="left", font=("Arial", 16, "normal"))
@@ -134,11 +133,6 @@ def game_loop():
 
     if random.randint(1, 8) == 1:
         create_red_star()
-
-    # Verifica si el contador de estrellas llega a -3 para cerrar el programa
-    if star_counter <= -3:
-        print("Contador de estrellas llegó a -3. Cerrando el programa.")
-        wn.bye()
 
     wn.update()
     wn.ontimer(game_loop, 50)  # Llama a game_loop cada 50 milisegundos
