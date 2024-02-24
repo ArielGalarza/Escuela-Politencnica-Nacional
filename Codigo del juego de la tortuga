@@ -1,7 +1,7 @@
 import turtle
 import random
 
-# **Configuración del jugador, estrellas y obstáculos**
+# Configuración del jugador, estrellas y obstáculos
 player = turtle.Turtle()
 player.shape("turtle")
 player.color("green")
