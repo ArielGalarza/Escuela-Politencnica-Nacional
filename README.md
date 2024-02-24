@@ -1,12 +1,12 @@
 ## Juego de Turtle en Python con Estructuras de Control
 
-Este proyecto es un juego desarrollado en Python utilizando la biblioteca Turtle. El juego está diseñado para demostrar el uso de estructuras de control como if, for, y while en Python. El objetivo del juego es recolectar estrellas mientras se evitan obstáculos, y el juego se cierra automáticamente cuando el jugador recolecta tres estrellas rojas.
+Este proyecto es un juego desarrollado en Python utilizando la biblioteca Turtle. El juego está diseñado para demostrar el uso de estructuras de control como **if, for, y while** en Python. El objetivo del juego es recolectar estrellas mientras se evitan obstáculos, y el juego se cierra automáticamente cuando el jugador recolecta tres estrellas rojas.
 
 ### Descripción del Juego:
 El juego se desarrolla en un entorno gráfico donde un personaje controlado por el usuario, representado por una tortuga, debe recolectar estrellas amarillas mientras se evitan obstáculos y estrellas rojas. Cada estrella amarilla recolectada aumenta la puntuación del jugador, mientras que recolectar una estrella roja disminuye la puntuación. El juego termina cuando el jugador recolecta tres estrellas rojas.
 
 ### Funcionalidades Destacadas:
--Utilización de estructuras de control como if, for, y while para controlar el flujo del juego.
+-Utilización de estructuras de control como **if, for, y while** para controlar el flujo del juego.
 
 -Movimiento del jugador utilizando las teclas de dirección.
 
