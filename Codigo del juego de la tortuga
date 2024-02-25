@@ -1,7 +1,7 @@
 import turtle
 import random
 
-#Configuración del jugador, estrellas y obstáculos
+# Configuración del jugador, estrellas y obstáculos
 player = turtle.Turtle()
 player.shape("turtle")
 player.color("green")
@@ -70,7 +70,27 @@ def move_player_down():
         y = -240
     player.sety(y)
 
-#Configuración de la ventana
+def check_win():
+    global star_counter
+    if star_counter >= 20:
+        print("¡Ganaste!")
+        show_win_message()
+
+def show_win_message():
+    win_screen = turtle.Screen()
+    win_screen.bgcolor("black")
+    win_screen.title("¡Ganaste!")
+
+    win_message = turtle.Turtle()
+    win_message.color("white")
+    win_message.penup()
+    win_message.goto(0, 0)
+    win_message.write("¡Ganaste!", align="center", font=("Arial", 24, "normal"))
+
+    # Configurar un temporizador para cerrar la ventana después de 5 segundos
+    turtle.ontimer(win_screen.bye, 5000)  # 5000 milisegundos = 5 segundos
+
+# Configuración de la ventana
 wn = turtle.Screen()
 wn.title("Juego de la Tortuga")
 wn.bgcolor("black")
@@ -81,50 +101,51 @@ wn.onkeypress(move_player_right, "Right")
 wn.onkeypress(move_player_up, "Up")
 wn.onkeypress(move_player_down, "Down")
 
-#Bucle principal del juego
+# Bucle principal del juego
 for _ in range(10):  # Controla el número inicial de estrellas en el juego
     create_star()
 
-for _ in range(5):  #Controla el número inicial de estrellas rojas en el juego
+for _ in range(5):  # Controla el número inicial de estrellas rojas en el juego
     create_red_star()
 
-for _ in range(10):  #Controla el número inicial de obstáculos en el juego
+for _ in range(10):  # Controla el número inicial de obstáculos en el juego
     create_obstacle()
 
 def game_loop():
-    global star_counter, missed_red_stars  #Agrega esta línea para indicar que estas variables son globales
-    #Mover y eliminar estrellas y obstáculos
+    global star_counter, missed_red_stars  # Agrega esta línea para indicar que estas variables son globales
+    # Mover y eliminar estrellas y obstáculos
     for game_object in game_objects:
         y = game_object.ycor()
         y -= 30  # Ajusta la velocidad ajustando este valor
         game_object.sety(y)
 
-        if player.distance(game_object) < 75:  #Aumenta la distancia para facilitar la recolección
+        if player.distance(game_object) < 75:  # Aumenta la distancia para facilitar la recolección
             if "yellow" in game_object.color():
                 star_counter += 1
                 counter_display.clear()
                 counter_display.write("Estrellas: {}".format(star_counter), align="left", font=("Arial", 16, "normal"))
                 game_object.hideturtle()
                 game_object.goto(random.randint(-380, 380), random.randint(-240, 240))
-                create_star()  #Vuelve a crear un objeto
+                create_star()  # Vuelve a crear un objeto
+                check_win()  # Verifica si se ha ganado después de recolectar una estrella
             elif "red" in game_object.color():
                 missed_red_stars += 1
                 if missed_red_stars >= 3:
                     print("Has perdido. Recolectaste 3 estrellas rojas incorrectamente.")
                     wn.bye()
                     return
-                star_counter -= 1  #Disminuye el contador al recolectar una estrella roja
+                star_counter -= 1  # Disminuye el contador al recolectar una estrella roja
                 counter_display.clear()
                 counter_display.write("Estrellas: {}".format(star_counter), align="left", font=("Arial", 16, "normal"))
                 game_object.hideturtle()
                 game_object.goto(random.randint(-380, 380), random.randint(-240, 240))
-                create_red_star()  #Vuelve a crear un objeto rojo
+                create_red_star()  # Vuelve a crear un objeto rojo
 
         if y < -300:
             game_object.hideturtle()
             game_objects.remove(game_object)
 
-    #Crear nuevos obstáculos y estrellas continuamente
+    # Crear nuevos obstáculos y estrellas continuamente
     if random.randint(1, 10) == 1:
         create_obstacle()
 
@@ -135,10 +156,10 @@ def game_loop():
         create_red_star()
 
     wn.update()
-    wn.ontimer(game_loop, 50)  #Llama a game_loop cada 50 milisegundos
+    wn.ontimer(game_loop, 50)  # Llama a game_loop cada 50 milisegundos
 
-#Inicia el bucle principal del juego
+# Inicia el bucle principal del juego
 game_loop()
 
-#Al salir del bucle principal, cierra la ventana al hacer clic
+# Al salir del bucle principal, cierra la ventana al hacer clic
 wn.mainloop()
