@@ -129,7 +129,7 @@ def game_loop():
         game_object.sety(y)
 
         # Verificar colisiones
-        if player.distance(game_object) < 30:
+        if player.distance(game_object) < 50:
             if "yellow" in game_object.color():
                 star_counter += 1
                 counter_display.clear()
