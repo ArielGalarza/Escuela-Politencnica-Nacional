@@ -1,6 +1,6 @@
-## Juego de Turtle en Python con Estructuras de Control
+## Juego de Turtle en Spyder con Estructuras de Control
 
-Este proyecto es un juego desarrollado en Python utilizando la biblioteca Turtle. El juego está diseñado para demostrar el uso de estructuras de control como **if, for, y while** en Python. El objetivo del juego es recolectar estrellas mientras se evitan obstáculos, y el juego se cierra automáticamente cuando el jugador recolecta tres estrellas rojas.
+Este proyecto es un juego desarrollado en Spyder utilizando la biblioteca Turtle. El juego está diseñado para demostrar el uso de estructuras de control como **if, for, y while** en Spyder. El objetivo del juego es recolectar estrellas mientras se evitan obstáculos, y el juego se cierra automáticamente cuando el jugador recolecta tres estrellas rojas.
 
 ### Descripción del Juego:
 El juego se desarrolla en un entorno gráfico donde un personaje controlado por el usuario, representado por una tortuga, debe recolectar estrellas amarillas mientras se evitan obstáculos y estrellas rojas. Cada estrella amarilla recolectada aumenta la puntuación del jugador, mientras que recolectar una estrella roja disminuye la puntuación. El juego termina cuando el jugador recolecta tres estrellas rojas.
@@ -19,7 +19,9 @@ El juego se desarrolla en un entorno gráfico donde un personaje controlado por 
 ### Instrucciones de Ejecución:
 -Clona o descarga este repositorio en tu sistema.
 
--Asegúrate de tener Python instalado en tu computadora.
+-Descarga turtle desde el cmd de tu ordenador
+
+-Asegúrate de tener Spyder instalado en tu computadora.
 
 -Usa las teclas de dirección (Arriba, Abajo, Izquierda, Derecha) para mover al jugador y recolectar estrellas.
 
