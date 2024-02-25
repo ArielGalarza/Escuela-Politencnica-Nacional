@@ -44,28 +44,28 @@ def create_obstacle():
 
 def move_player_left():
     x = player.xcor()
-    x -= 20  #Ajusta la velocidad moviendo este valor hacia la izquierda
+    x -= 20  # Ajusta la velocidad moviendo este valor hacia la izquierda
     if x < -380:
         x = -380
     player.setx(x)
 
 def move_player_right():
     x = player.xcor()
-    x += 20  #Ajusta la velocidad moviendo este valor hacia la derecha
+    x += 20  # Ajusta la velocidad moviendo este valor hacia la derecha
     if x > 380:
         x = 380
     player.setx(x)
 
 def move_player_up():
     y = player.ycor()
-    y += 20  #Ajusta la velocidad moviendo este valor hacia arriba
+    y += 20  # Ajusta la velocidad moviendo este valor hacia arriba
     if y > 240:
         y = 240
     player.sety(y)
 
 def move_player_down():
     y = player.ycor()
-    y -= 20  #Ajusta la velocidad moviendo este valor hacia abajo
+    y -= 20  # Ajusta la velocidad moviendo este valor hacia abajo
     if y < -240:
         y = -240
     player.sety(y)
@@ -88,7 +88,7 @@ def show_win_message():
     win_message.write("¡Ganaste!", align="center", font=("Arial", 24, "normal"))
 
     # Configurar un temporizador para cerrar la ventana después de 5 segundos
-    turtle.ontimer(win_screen.bye, 5000)  # 5000 milisegundos = 5 segundos
+    win_screen.ontimer(win_screen.bye, 5000)  # 5000 milisegundos = 5 segundos
 
 # Configuración de la ventana
 wn = turtle.Screen()
@@ -101,6 +101,14 @@ wn.onkeypress(move_player_right, "Right")
 wn.onkeypress(move_player_up, "Up")
 wn.onkeypress(move_player_down, "Down")
 
+# Función para eliminar objetos que salen de la pantalla
+def cleanup_objects():
+    global game_objects
+    for game_object in game_objects[:]:
+        if game_object.ycor() < -300:
+            game_object.hideturtle()
+            game_objects.remove(game_object)
+
 # Bucle principal del juego
 for _ in range(10):  # Controla el número inicial de estrellas en el juego
     create_star()
@@ -112,14 +120,16 @@ for _ in range(10):  # Controla el número inicial de obstáculos en el juego
     create_obstacle()
 
 def game_loop():
-    global star_counter, missed_red_stars  # Agrega esta línea para indicar que estas variables son globales
+    global star_counter, missed_red_stars
+
     # Mover y eliminar estrellas y obstáculos
     for game_object in game_objects:
         y = game_object.ycor()
-        y -= 30  # Ajusta la velocidad ajustando este valor
+        y -= 5  # Ajusta la velocidad ajustando este valor
         game_object.sety(y)
 
-        if player.distance(game_object) < 75:  # Aumenta la distancia para facilitar la recolección
+        # Verificar colisiones
+        if player.distance(game_object) < 30:
             if "yellow" in game_object.color():
                 star_counter += 1
                 counter_display.clear()
@@ -141,9 +151,8 @@ def game_loop():
                 game_object.goto(random.randint(-380, 380), random.randint(-240, 240))
                 create_red_star()  # Vuelve a crear un objeto rojo
 
-        if y < -300:
-            game_object.hideturtle()
-            game_objects.remove(game_object)
+    # Limpieza de objetos que salen de la pantalla
+    cleanup_objects()
 
     # Crear nuevos obstáculos y estrellas continuamente
     if random.randint(1, 10) == 1:
